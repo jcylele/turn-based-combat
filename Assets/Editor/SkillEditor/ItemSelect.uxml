@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <Style src="project://database/Assets/Editor/SkillEditor/SkillEditor.uss?fileID=7433441132597879392&amp;guid=4544c0a161d218f4295b717b8662b9f8&amp;type=3#SkillEditor" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+        <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+            <ui:DropdownField label="BaseType" index="-1" name="ddType" style="flex-shrink: 4; flex-grow: 4; flex-basis: 80%;" />
+            <ui:Button text="New" display-tooltip-when-elided="true" name="btnNew" style="flex-shrink: 1; flex-grow: 1; flex-basis: 20%;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+            <ui:DropdownField label="Dropdown" index="-1" name="ddID" style="flex-shrink: 4; flex-grow: 4; flex-basis: 80%;" />
+            <ui:Button text="Edit" display-tooltip-when-elided="true" name="btnEdit" style="flex-shrink: 1; flex-grow: 1; flex-basis: 20%;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

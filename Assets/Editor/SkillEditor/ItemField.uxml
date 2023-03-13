@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Editor/SkillEditor/SkillEditor.uss?fileID=7433441132597879392&amp;guid=4544c0a161d218f4295b717b8662b9f8&amp;type=3#SkillEditor" />
+    <ui:IntegerField label="Int Field" value="42" name="Int" />
+    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" name="String" />
+    <ui:Toggle label="Toggle" name="Bool" />
+    <ui:EnumField label="Enum" name="Enum" />
+    <ui:VisualElement name="Class" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: row; flex-shrink: 0;">
+        <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" style="min-width: 150px;" />
+        <ui:Button text="Edit" display-tooltip-when-elided="true" style="flex-shrink: 1; flex-grow: 1; flex-basis: 0;" />
+    </ui:VisualElement>
+    <ui:DropdownField label="Dropdown" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="ID" />
+</ui:UXML>
