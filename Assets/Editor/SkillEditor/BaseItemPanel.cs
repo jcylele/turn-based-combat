@@ -3,6 +3,9 @@ using UnityEngine.UIElements;
 
 namespace Skill.Editor
 {
+    /// <summary>
+    /// A simple class to maintain the life cycle of a panel
+    /// </summary>
     public class BaseItemPanel
     {
         protected readonly DataStore m_DataStore;

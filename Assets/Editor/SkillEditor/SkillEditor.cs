@@ -6,6 +6,9 @@ using UnityEngine.UIElements;
 
 namespace Skill.Editor
 {
+    /// <summary>
+    /// Entrance of the skill editor
+    /// </summary>
     public class SkillEditor : EditorWindow
     {
         [SerializeField]

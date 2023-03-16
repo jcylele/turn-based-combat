@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace Skill.Skills
 {
-    [Skill]
-    [SkillChild(1, typeof(SpecialAttackSkill))]
+    [Combat]
+    [CombatChild(1, typeof(SpecialAttackSkill))]
     [Serializable]
+    [CombatShow("Normal Attack")]
     public class AttackSkill : BaseSkill
     {
         public int AttackFactor;

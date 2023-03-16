@@ -4,12 +4,14 @@ using Skill.Skills;
 using System;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Skill.Editor
 {
+    /// <summary>
+    /// A panel which edits class instances or fields
+    /// </summary>
     public class ItemEditPanel : BaseItemPanel
     {
         private EditingItemData editingItemData;
@@ -134,7 +136,7 @@ namespace Skill.Editor
         {typeof(bool), "Bool"},
         {typeof(Enum), "Enum"},
         {typeof(BaseNoIdItem), "Class"},
-        {typeof(SkillIdSelectAttribute), "ID" },
+        {typeof(CombatIdSelectAttribute), "ID" },
     };
 
         public static VisualTreeAsset FieldAsset
@@ -178,7 +180,7 @@ namespace Skill.Editor
             {
                 if (editFieldInfo.IDSelectType != null)
                 {
-                    var field = element.Q<DropdownField>(fieldElemNames[typeof(SkillIdSelectAttribute)]);
+                    var field = element.Q<DropdownField>(fieldElemNames[typeof(CombatIdSelectAttribute)]);
                     field.label = editFieldInfo.ShowName;
 
                     field.choices = this.m_DataStore.GetIdList(editFieldInfo.IDSelectType);

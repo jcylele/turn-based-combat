@@ -2,9 +2,13 @@
 using Skill.Skills;
 using System;
 using System.Reflection;
+using UnityEngine.Rendering;
 
 namespace Skill.Reflect
 {
+    /// <summary>
+    /// reflection info of a field
+    /// </summary>
     public class EditFieldInfo
     {
         private readonly FieldInfo field;
@@ -15,6 +19,11 @@ namespace Skill.Reflect
         {
             get
             {
+                var showAttr = field.GetCustomAttribute<CombatShowAttribute>();
+                if (showAttr != null)
+                {
+                    return showAttr.showName;
+                }
                 return field.Name;
             }
         }
@@ -31,7 +40,7 @@ namespace Skill.Reflect
         {
             field = fieldInfo;
 
-            var skillIdSelect = fieldInfo.GetCustomAttribute<SkillIdSelectAttribute>();
+            var skillIdSelect = fieldInfo.GetCustomAttribute<CombatIdSelectAttribute>();
             if (skillIdSelect != null)
             {
                 IDSelectType = skillIdSelect.idType;

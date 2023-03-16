@@ -3,31 +3,31 @@ using System;
 
 namespace Skill.Skills
 {
-    [Skill]
-    [SkillChild(1, typeof(SingleSkillRange))]
-    [SkillChild(2, typeof(CircleSkillRange))]
-    [SkillChild(3, typeof(RectSkillRange))]
+    [Combat]
+    [CombatChild(1, typeof(SingleSkillRange))]
+    [CombatChild(2, typeof(CircleSkillRange))]
+    [CombatChild(3, typeof(RectSkillRange))]
     [Serializable]
     public abstract class BaseSkillRange : BaseNoIdItem
     {
 
     }
 
-    [Skill]
+    [Combat]
     [Serializable]
     public class SingleSkillRange : BaseSkillRange
     {
         public int range;
     }
 
-    [Skill]
+    [Combat]
     [Serializable]
     public class CircleSkillRange : BaseSkillRange
     {
         public int radius;
     }
 
-    [Skill]
+    [Combat]
     [Serializable]
     public class RectSkillRange : BaseSkillRange
     {

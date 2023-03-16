@@ -10,6 +10,11 @@ using UnityEngine.UIElements;
 
 namespace Skill.Reflect
 {
+    /// <summary>
+    /// maintains data of the editor
+    /// <para>separates data and view</para>
+    /// <para>refer to a data store plugin of vue framewor</para>
+    /// </summary>
     public class DataStore
     {
         public Action OnStackChanged;

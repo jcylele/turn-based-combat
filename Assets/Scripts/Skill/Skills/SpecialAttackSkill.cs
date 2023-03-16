@@ -1,26 +1,29 @@
 ﻿using Skill.Attribute;
 using System;
-using System.ComponentModel;
 
 namespace Skill.Skills
 {
+    //TODO Multiple Selection DropDown is not supported yet
+    //TODO CombatShow of Enum values
     [Flags]
     public enum EAttackFlag
     {
-        [Description("无")]
+        [CombatShow("none")]
         None = 0,
-        [Description("必定命中")]
+        [CombatShow("must hit the target")]
         NoMiss = 1 << 0,
-        [Description("必定暴击")]
+        [CombatShow("must be critical")]
         Critical = 1 << 1,
-        [Description("忽视护甲")]
+        [CombatShow("ignore armor of target")]
         IgnoreArmor = 1 << 2,
     }
 
-    [Skill]
+    [Combat]
     [Serializable]
+    [CombatShow("Attack With Effects")]
     class SpecialAttackSkill : AttackSkill
     {
+        [CombatShow("Special Flags")]
         public EAttackFlag AttackFlag;
     }
 }

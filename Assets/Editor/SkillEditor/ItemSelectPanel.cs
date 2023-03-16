@@ -3,6 +3,9 @@ using UnityEngine.UIElements;
 
 namespace Skill.Editor
 {
+    /// <summary>
+    /// A panel to select or new instance for editing
+    /// </summary>
     public class ItemSelectPanel : BaseItemPanel
     {
         private DropdownField ddType;

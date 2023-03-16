@@ -3,6 +3,9 @@ using System;
 
 namespace Skill.Reflect
 {
+    /// <summary>
+    /// current editing item
+    /// </summary>
     public abstract class EditingItemData
     {
         public BaseEditItem Item

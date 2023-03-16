@@ -13,7 +13,7 @@ namespace Skill.Reflect
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="objSource">original object</param>
-        /// <returns>copy</returns>
+        /// <returns>copy of the original object</returns>
         public static T CopyObject<T>(this BaseEditItem objSource)
         {
             using (MemoryStream stream = new MemoryStream())

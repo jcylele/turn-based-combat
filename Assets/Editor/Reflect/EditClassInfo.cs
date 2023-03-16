@@ -1,12 +1,16 @@
-﻿using System;
+﻿using Skill.Attribute;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
 namespace Skill.Reflect
 {
+    /// <summary>
+    /// reflection info of a class type
+    /// </summary>
     public class EditClassInfo
     {
-        private readonly Type self;
+        private readonly Type classType;
         private List<EditFieldInfo> fieldInfoList;
         private readonly Dictionary<Type, EditClassInfo> mChildren;
 
@@ -24,9 +28,9 @@ namespace Skill.Reflect
             }
         }
 
-        public EditClassInfo(Type self)
+        public EditClassInfo(Type clsType)
         {
-            this.self = self;
+            this.classType = clsType;
             this.mChildren = new Dictionary<Type, EditClassInfo>();
         }
 
@@ -34,13 +38,18 @@ namespace Skill.Reflect
         {
             get
             {
-                return self.Name;
+                var showAttr = classType.GetCustomAttribute<CombatShowAttribute>();
+                if (showAttr != null)
+                {
+                    return showAttr.showName;
+                }
+                return classType.Name;
             }
         }
 
         public void InitFields()
         {
-            var fieldList = self.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            var fieldList = classType.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             fieldInfoList = new List<EditFieldInfo>(fieldList.Length);
             foreach (var fieldInfo in fieldList)
             {
@@ -50,12 +59,12 @@ namespace Skill.Reflect
 
         public object NewInstance()
         {
-            return Activator.CreateInstance(self);
+            return Activator.CreateInstance(classType);
         }
 
-        public bool IsAbstract => self.IsAbstract;
+        public bool IsAbstract => classType.IsAbstract;
 
-        public Type SelfType => self;
+        public Type SelfType => classType;
 
         public void AddChild(EditClassInfo child)
         {

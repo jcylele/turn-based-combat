@@ -3,10 +3,11 @@ using System;
 
 namespace Skill.Skills
 {
-    [Skill]
-    [SkillChild(1, typeof(AttackSkill))]
-    [SkillChild(2, typeof(BuffSkill))]
+    [Combat]
+    [CombatChild(1, typeof(AttackSkill))]
+    [CombatChild(2, typeof(BuffSkill))]
     [Serializable]
+    [CombatShow("SKILL")]
     public abstract class BaseSkill : BaseIdItem
     {
         public string name;

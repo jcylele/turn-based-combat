@@ -4,11 +4,12 @@ using System;
 
 namespace Skill.Skills
 {
-    [Skill]
+    [Combat]
     [Serializable]
+    [CombatShow("Cast A Buff")]
     class BuffSkill : BaseSkill
     {
-        [SkillIdSelect(typeof(BaseBuff))]
+        [CombatIdSelect(typeof(BaseBuff))]
         public int BuffID;
 
         public int lastTime;

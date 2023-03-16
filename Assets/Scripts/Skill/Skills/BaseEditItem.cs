@@ -4,9 +4,9 @@ using System;
 
 namespace Skill.Skills
 {
-    [Skill]
-    [SkillChild(1, typeof(BaseIdItem))]
-    [SkillChild(2, typeof(BaseNoIdItem))]
+    [Combat]
+    [CombatChild(1, typeof(BaseIdItem))]
+    [CombatChild(2, typeof(BaseNoIdItem))]
     [Serializable]
     public abstract class BaseEditItem
     {
@@ -16,17 +16,18 @@ namespace Skill.Skills
         }
     }
 
-    [Skill]
-    [SkillChild(1, typeof(BaseSkill))]
-    [SkillChild(2, typeof(BaseBuff))]
+    [Combat]
+    [CombatChild(1, typeof(BaseSkill))]
+    [CombatChild(2, typeof(BaseBuff))]
     [Serializable]
     public abstract class BaseIdItem : BaseEditItem
     {
+        [CombatShow("unique id", "use different partition for each base type")]
         public int id;
     }
 
-    [Skill]
-    [SkillChild(1, typeof(BaseSkillRange))]
+    [Combat]
+    [CombatChild(1, typeof(BaseSkillRange))]
     [Serializable]
     public abstract class BaseNoIdItem : BaseEditItem
     {

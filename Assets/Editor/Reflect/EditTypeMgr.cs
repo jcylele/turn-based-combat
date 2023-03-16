@@ -5,6 +5,9 @@ using Skill.Attribute;
 
 namespace Skill.Reflect
 {
+    /// <summary>
+    /// keeps reflection info of all types derived from one type
+    /// </summary>
     public class EditTypeMgr
     {
         private Dictionary<Type, EditClassInfo> allClasses;
@@ -78,7 +81,7 @@ namespace Skill.Reflect
             {
                 var parent = queue.Dequeue();
                 typeMap.Add(parent.SelfType, parent);
-                var attrList = parent.SelfType.GetCustomAttributes<SkillChildAttribute>();
+                var attrList = parent.SelfType.GetCustomAttributes<CombatChildAttribute>();
                 foreach (var attr in attrList)
                 {
                     var child = new EditClassInfo(attr.childType);
