@@ -17,7 +17,7 @@ namespace Skill.Reflect
     /// </summary>
     public class DataStore
     {
-        public Action OnStackChanged;
+        public System.Action OnStackChanged;
         private readonly CombatConfig m_CombatConfig;
         private EditTypeMgr TypeMgr;
 

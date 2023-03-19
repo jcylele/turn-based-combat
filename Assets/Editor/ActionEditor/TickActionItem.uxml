@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Editor/ActionEditor/ActionEditor.uss?fileID=7433441132597879392&amp;guid=a6d6cfbd712fdd2449a2f9799f8453d0&amp;type=3#ActionEditor" />
+    <ui:MinMaxSlider picking-mode="Ignore" label="Min/Max Slider" min-value="10" max-value="12" low-limit="-10" high-limit="40" name="tick" />
+    <ui:SliderInt picking-mode="Ignore" label="SliderInt" value="42" high-value="100" name="trigger" style="cursor: initial;" />
+</ui:UXML>

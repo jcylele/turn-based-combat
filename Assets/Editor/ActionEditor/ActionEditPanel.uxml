@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/Editor/ActionEditor/ActionEditor.uss?fileID=7433441132597879392&amp;guid=a6d6cfbd712fdd2449a2f9799f8453d0&amp;type=3#ActionEditor" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+        <ui:VisualElement style="flex-grow: 2; background-color: rgba(0, 0, 0, 0); min-width: 400px; flex-shrink: 2;">
+            <uie:Toolbar style="padding-top: 5px; padding-bottom: 5px; height: auto;">
+                <uie:ToolbarMenu tabindex="-1" display-tooltip-when-elided="true" text="+" name="menuAdd" style="margin-left: 10px; margin-right: 10px; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; -unity-text-align: middle-center;" />
+                <uie:ToolbarButton text="Save" display-tooltip-when-elided="true" name="tbSave" style="padding-left: 10px; padding-right: 10px; padding-top: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; -unity-text-align: middle-center;" />
+            </uie:Toolbar>
+            <uie:PropertyField name="templateName" binding-path="templateName" />
+            <uie:PropertyField name="totalFrame" binding-path="totalFrame" />
+            <ui:ListView focusable="true" name="actionList" fixed-item-height="30" header-title="Actions" show-foldout-header="true" style="margin-top: 10px; margin-bottom: 10px;" />
+        </ui:VisualElement>
+        <uie:PropertyField name="action" style="min-width: 240px; flex-grow: 1;" />
+    </ui:VisualElement>
+</ui:UXML>

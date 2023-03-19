@@ -1,0 +1,7 @@
+.unity-text-element {
+    font-size: 24px;
+}
+
+.unity-base-field > Label {
+    width : 200px;
+}
