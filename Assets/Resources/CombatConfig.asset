@@ -12,79 +12,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 666b9e5b462519d46a0e3bce9d13c527, type: 3}
   m_Name: CombatConfig
   m_EditorClassIdentifier: 
-  skills:
-  - rid: 1197092482726756352
-  - rid: 1197092482133000194
-  - rid: 1197092482133000197
-  - rid: 1197092482726756356
-  buffs:
-  - rid: 1197092482133000199
-  - rid: 1197092482133000200
-  - rid: 1197092482726756355
+  allData:
+  - rid: 1197092640041467991
+  - rid: 1197092644010590373
+  - rid: 1197092644010590209
   references:
     version: 2
     RefIds:
-    - rid: 1197092482133000194
-      type: {class: SpecialAttackSkill, ns: Skill.Skills, asm: Assembly-CSharp}
-      data:
-        id: 2
-        name: sp2
-        desc: desc of sp2
-        AttackFactor: 2
-        AttackFix: 2
-        AttackRange:
-          rid: 1197092482133000195
-        AttackFlag: 4
-    - rid: 1197092482133000195
-      type: {class: CircleSkillRange, ns: Skill.Skills, asm: Assembly-CSharp}
-      data:
-        radius: 111
-    - rid: 1197092482133000197
-      type: {class: BuffSkill, ns: Skill.Skills, asm: Assembly-CSharp}
-      data:
-        id: 3
-        name: buff101
-        desc: ujiasedbuidwsuidwsu
-        BuffID: 999
-        lastTime: 1000
-        canClear: 1
-    - rid: 1197092482133000199
-      type: {class: PropBuff, ns: Skill.Buffs, asm: Assembly-CSharp}
-      data:
-        id: 1001
-        prop: 1
-        val: 100
-    - rid: 1197092482133000200
-      type: {class: TickBuff, ns: Skill.Buffs, asm: Assembly-CSharp}
-      data:
-        id: 1002
-        interval: 333
-    - rid: 1197092482726756352
+    - rid: 1197092640041467991
       type: {class: AttackSkill, ns: Skill.Skills, asm: Assembly-CSharp}
       data:
         id: 1
-        name: attack1
-        desc: desc of attack1
-        AttackFactor: 200
-        AttackFix: 100
+        name: attack
+        desc: attack an enemy
+        triggers: []
+        AttackFactor: 1
+        AttackFix: 2
         AttackRange:
-          rid: 1197092482726756353
-    - rid: 1197092482726756353
-      type: {class: SingleSkillRange, ns: Skill.Skills, asm: Assembly-CSharp}
+          rid: 1197092640041467992
+    - rid: 1197092640041467992
+      type: {class: RectSkillRange, ns: Skill.Skills, asm: Assembly-CSharp}
       data:
-        range: 888
-    - rid: 1197092482726756355
-      type: {class: PropBuff, ns: Skill.Buffs, asm: Assembly-CSharp}
-      data:
-        id: 1003
-        prop: 3
-        val: 111111111
-    - rid: 1197092482726756356
+        width: 0
+        height: 0
+    - rid: 1197092644010590209
       type: {class: BuffSkill, ns: Skill.Skills, asm: Assembly-CSharp}
       data:
-        id: 4
-        name: buff4
-        desc: 45685675234986787684
-        BuffID: 1003
-        lastTime: 2000
-        canClear: 1
+        id: 3
+        name: skill buff3
+        desc: 
+        triggers: []
+        BuffID: 0
+        lastTime: 99999
+        canClear: 0
+    - rid: 1197092644010590373
+      type: {class: SpecialAttackSkill, ns: Skill.Skills, asm: Assembly-CSharp}
+      data:
+        id: 2
+        name: sp attack
+        desc: 99
+        triggers: []
+        AttackFactor: 99
+        AttackFix: 99
+        AttackRange:
+          rid: 1197092644010590374
+        AttackFlag: 6
+    - rid: 1197092644010590374
+      type: {class: RectSkillRange, ns: Skill.Skills, asm: Assembly-CSharp}
+      data:
+        width: 2
+        height: 5

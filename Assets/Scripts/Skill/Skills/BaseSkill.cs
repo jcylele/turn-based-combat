@@ -1,5 +1,8 @@
 ﻿using Skill.Attribute;
 using System;
+using System.Collections.Generic;
+using Skill.Triggers;
+using UnityEngine;
 
 namespace Skill.Skills
 {
@@ -7,10 +10,8 @@ namespace Skill.Skills
     [CombatChild(1, typeof(AttackSkill))]
     [CombatChild(2, typeof(BuffSkill))]
     [Serializable]
-    [CombatShow("SKILL")]
     public abstract class BaseSkill : BaseIdItem
     {
-        public string name;
-        public string desc;
+        [SerializeReference] public List<EventTrigger> triggers;
     }
 }

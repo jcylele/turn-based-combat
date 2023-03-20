@@ -1,12 +1,12 @@
-using Skill.Action;
 using System;
 using System.Collections.Generic;
+using Skill.Action;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Skill.Editor
+namespace Editor.ActionEditor
 {
     public class ActionEditor : EditorWindow
     {

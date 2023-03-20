@@ -14,7 +14,6 @@ namespace Skill.Skills
 
         public int AttackFix;
 
-        [SerializeReference]
-        public BaseSkillRange AttackRange;
+        [SerializeReference] public BaseSkillRange AttackRange;
     }
 }

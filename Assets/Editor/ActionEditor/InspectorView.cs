@@ -1,6 +1,6 @@
 using UnityEngine.UIElements;
 
-namespace Skill.Editor
+namespace Editor.ActionEditor
 {
     public class InspectorView : VisualElement
     {

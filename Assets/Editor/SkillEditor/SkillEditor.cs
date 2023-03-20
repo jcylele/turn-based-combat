@@ -1,23 +1,29 @@
+using System.Collections.Generic;
 using Skill.Data;
-using Skill.Reflect;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Skill.Editor
+namespace Editor.SkillEditor
 {
+    public enum EItemPanel
+    {
+        Select,
+        Edit,
+        Compare,
+    }
+    
     /// <summary>
     /// Entrance of the skill editor
     /// </summary>
     public class SkillEditor : EditorWindow
     {
-        [SerializeField]
-        private VisualTreeAsset m_SelectViewAsset = default;
+        [SerializeField] private VisualTreeAsset m_SelectViewAsset = default;
 
-        [SerializeField]
-        private VisualTreeAsset m_ItemViewAsset = default;
+        [SerializeField] private VisualTreeAsset m_ItemViewAsset = default;
+        [SerializeField] private VisualTreeAsset m_ItemCompareAsset = default;
 
-        private CombatConfig m_CombatConfig = default;
+        public CombatConfig CombatConfig { get; private set; }
 
         [MenuItem("Skill/Skill Editor")]
         public static void ShowExample()
@@ -26,14 +32,14 @@ namespace Skill.Editor
             wnd.titleContent = new GUIContent("SkillEditor");
         }
 
-        private DataStore m_DataStore;
-        private ItemSelectPanel selectPanel;
-        private ItemEditPanel editPanel;
+        public DataStore DataStore { get; private set; }
+        private Dictionary<EItemPanel, BaseItemPanel> mItemPanels;
 
         public void CreateGUI()
         {
-            this.m_CombatConfig = AssetDatabase.LoadAssetAtPath<CombatConfig>("Assets/Resources/CombatConfig.asset");
-
+            this.CombatConfig = AssetDatabase.LoadAssetAtPath<CombatConfig>(EditorConst.ConfigPath_CombatConfig);
+            this.mItemPanels = new Dictionary<EItemPanel, BaseItemPanel>();
+            
             // Each editor window contains a root VisualElement object
             VisualElement root = rootVisualElement;
 
@@ -44,32 +50,36 @@ namespace Skill.Editor
             // Instantiate UXML
             var editView = m_ItemViewAsset.Instantiate();
             root.Add(editView);
+            
+            var compareView = m_ItemCompareAsset.Instantiate();
+            root.Add(compareView);
 
-            m_DataStore = new DataStore(this.m_CombatConfig);
-            m_DataStore.OnStackChanged = OnStackChanged;
+            DataStore = new DataStore(this.CombatConfig);
+            DataStore.OnStackChanged = OnStackChanged;
 
-            this.selectPanel = new ItemSelectPanel(m_DataStore);
-            this.selectPanel.Bind(selectView);
+            var selectPanel = new ItemSelectPanel(DataStore);
+            selectPanel.Bind(selectView);
+            this.mItemPanels.Add(EItemPanel.Select, selectPanel);
 
-            this.editPanel = new ItemEditPanel(m_DataStore);
-            this.editPanel.Bind(editView);
+            var editPanel = new ItemEditPanel(DataStore);
+            editPanel.Bind(editView);
+            this.mItemPanels.Add(EItemPanel.Edit, editPanel);
+            
+            var comparePanel = new ItemComparePanel(DataStore);
+            comparePanel.Bind(compareView);
+            this.mItemPanels.Add(EItemPanel.Compare, comparePanel);
 
             OnStackChanged();
         }
 
         private void OnStackChanged()
         {
-            this.selectPanel.Enabled = false;
-            this.editPanel.Enabled = false;
+            foreach (var panel in mItemPanels)
+            {
+                panel.Value.Enabled = false;
+            }
 
-            if (this.m_DataStore.IsEditing)
-            {
-                this.editPanel.Enabled = true;
-            }
-            else
-            {
-                this.selectPanel.Enabled = true;
-            }
+            this.mItemPanels[this.DataStore.CurPanel].Enabled = true;
         }
     }
 }

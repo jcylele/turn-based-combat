@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/Editor/SkillEditor/SkillEditor.uss?fileID=7433441132597879392&amp;guid=4544c0a161d218f4295b717b8662b9f8&amp;type=3#SkillEditor" />
+    <ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1; flex-basis: auto; flex-direction: row;">
+            <uie:PropertyField name="origin" class="white-border" style="flex-grow: 1; flex-basis: 50%;" />
+            <uie:PropertyField name="new" class="white-border" style="flex-basis: 50%; flex-grow: 1;" />
+        </ui:VisualElement>
+        <ui:VisualElement class="button-row" style="justify-content: space-around; margin-top: 10px;">
+            <ui:Button text="Cancel" display-tooltip-when-elided="true" name="btnCancel" class="big-button" />
+            <ui:Button text="Save" display-tooltip-when-elided="true" name="btnSave" class="big-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

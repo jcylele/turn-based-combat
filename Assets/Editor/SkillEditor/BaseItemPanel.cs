@@ -1,7 +1,6 @@
-﻿using Skill.Reflect;
-using UnityEngine.UIElements;
+﻿using UnityEngine.UIElements;
 
-namespace Skill.Editor
+namespace Editor.SkillEditor
 {
     /// <summary>
     /// A simple class to maintain the life cycle of a panel
@@ -25,26 +24,23 @@ namespace Skill.Editor
             {
                 this.OnShow();
             }
+
             RefreshVisibility();
         }
 
         protected virtual void OnBind()
         {
-
         }
 
         protected virtual void OnShow()
         {
-
         }
 
         private bool m_enabled = true;
+
         public bool Enabled
         {
-            get
-            {
-                return this.m_enabled;
-            }
+            get { return this.m_enabled; }
             set
             {
                 if (this.m_enabled == value) return;
@@ -55,6 +51,7 @@ namespace Skill.Editor
                 {
                     this.OnShow();
                 }
+
                 RefreshVisibility();
             }
         }
@@ -63,7 +60,9 @@ namespace Skill.Editor
         {
             if (this.root != null)
             {
-                this.root.style.display = this.m_enabled ? DisplayStyle.Flex : DisplayStyle.None;
+                this.root.style.display = this.m_enabled
+                    ? DisplayStyle.Flex
+                    : DisplayStyle.None;
             }
         }
     }

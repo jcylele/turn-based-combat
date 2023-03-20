@@ -1,7 +1,6 @@
-﻿using Skill.Reflect;
-using UnityEngine.UIElements;
+﻿using UnityEngine.UIElements;
 
-namespace Skill.Editor
+namespace Editor.SkillEditor
 {
     /// <summary>
     /// A panel to select or new instance for editing

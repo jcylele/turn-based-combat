@@ -1,34 +1,38 @@
-﻿using Skill.Attribute;
-using System;
-using System.Collections.Generic;
+﻿using System.Linq;
+using Editor.Reflect;
+using Skill.Attribute;
+using Skill.Skills;
 using UnityEditor;
+using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 
-namespace Skill.Action
+namespace Editor.ActionEditor
 {
     [CustomPropertyDrawer(typeof(CombatIdSelectAttribute))]
     public class IdSelectDrawer : PropertyDrawer
     {
         public override VisualElement CreatePropertyGUI(SerializedProperty property)
         {
-            var idSelectAttribute = attribute as CombatIdSelectAttribute;
-
-            if (property.propertyType != SerializedPropertyType.Integer)
+            if (!EditorWindow.HasOpenInstances<SkillEditor.SkillEditor>())
             {
-                throw new Exception("CombatIdSelectAttribute can only be used on int fields");
+                return new PropertyField(property);
             }
 
-            var field = new PopupField<int>();
-            field.label = property.displayName ?? property.name;
-            //field.choices = this.m_DataStore.GetIdList(editFieldInfo.IDSelectType);
-            field.choices = new List<int>() { 1, 2, 3, 4, 5 };
-            field.value = property.intValue;
-            field.RegisterCallback((ChangeEvent<int> evt) =>
+            var idSelectAttribute = attribute as CombatIdSelectAttribute;
+            var wnd = EditorWindow.GetWindow<SkillEditor.SkillEditor>();
+            var choices = wnd.CombatConfig.GetFilteredDataList(idSelectAttribute.idType).ToList();
+            var curIndex = choices.FindIndex((item => item.id == property.intValue));
+            var popupField = new PopupField<BaseIdItem>(property.displayName, choices, curIndex, item =>
             {
-                property.intValue = evt.newValue;
+                if (item == null)
+                {
+                    return string.Empty;
+                }
+                property.intValue = item.id;
+                property.serializedObject.ApplyModifiedProperties();
+                return item.ToString();
             });
-
-            return field;
+            return popupField;
         }
     }
 }

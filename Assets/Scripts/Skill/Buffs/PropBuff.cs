@@ -1,17 +1,18 @@
 ﻿using Skill.Attribute;
 using System;
+using UnityEngine;
 
 namespace Skill.Buffs
 {
     public enum EProp
     {
-        [CombatShow("strength")]
+        [InspectorName("Strength")]
         STR = 0,
-        [CombatShow("dexterity")]
+        [InspectorName("Dexterity")]
         DEX = 1,
-        [CombatShow("intelligence")]
+        [InspectorName("Intelligence")]
         INT = 2,
-        [CombatShow("do not select")]
+        [InspectorName("Invalid")]
         MAX = 3,
     }
 

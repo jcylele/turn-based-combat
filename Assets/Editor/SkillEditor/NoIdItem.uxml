@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/Editor/SkillEditor/SkillEditor.uss?fileID=7433441132597879392&amp;guid=4544c0a161d218f4295b717b8662b9f8&amp;type=3#SkillEditor" />
+    <ui:VisualElement class="grey-border" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+        <uie:PropertyField />
+        <ui:VisualElement class="button-row" style="background-color: rgba(0, 0, 0, 0);">
+            <ui:Button text="Edit" display-tooltip-when-elided="true" name="btnEdit" class="small-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

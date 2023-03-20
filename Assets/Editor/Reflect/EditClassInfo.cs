@@ -1,74 +1,47 @@
-﻿using Skill.Attribute;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Skill.Attribute;
 
-namespace Skill.Reflect
+namespace Editor.Reflect
 {
     /// <summary>
     /// reflection info of a class type
     /// </summary>
     public class EditClassInfo
     {
-        private readonly Type classType;
-        private List<EditFieldInfo> fieldInfoList;
-        private readonly Dictionary<Type, EditClassInfo> mChildren;
-
-        public Dictionary<Type, EditClassInfo> Children => mChildren;
-
-        public List<EditFieldInfo> FieldInfoList
-        {
-            get
-            {
-                if (fieldInfoList == null)
-                {
-                    InitFields();
-                }
-                return fieldInfoList;
-            }
-        }
-
+        public Dictionary<Type, EditClassInfo> Children { get; set; }
         public EditClassInfo(Type clsType)
         {
-            this.classType = clsType;
-            this.mChildren = new Dictionary<Type, EditClassInfo>();
+            this.SelfType = clsType;
+            this.Children = new Dictionary<Type, EditClassInfo>();
         }
 
         public string ShowName
         {
             get
             {
-                var showAttr = classType.GetCustomAttribute<CombatShowAttribute>();
+                var showAttr = SelfType.GetCustomAttribute<CombatShowAttribute>();
                 if (showAttr != null)
                 {
                     return showAttr.showName;
                 }
-                return classType.Name;
-            }
-        }
-
-        public void InitFields()
-        {
-            var fieldList = classType.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-            fieldInfoList = new List<EditFieldInfo>(fieldList.Length);
-            foreach (var fieldInfo in fieldList)
-            {
-                fieldInfoList.Add(new EditFieldInfo(fieldInfo));
+                return SelfType.Name;
             }
         }
 
         public object NewInstance()
         {
-            return Activator.CreateInstance(classType);
+            return Activator.CreateInstance(SelfType);
         }
 
-        public bool IsAbstract => classType.IsAbstract;
+        public bool IsAbstract => SelfType.IsAbstract;
 
-        public Type SelfType => classType;
+        public Type SelfType { get; }
 
         public void AddChild(EditClassInfo child)
         {
-            this.mChildren.Add(child.SelfType, child);
+            this.Children.Add(child.SelfType, child);
         }
     }
 }

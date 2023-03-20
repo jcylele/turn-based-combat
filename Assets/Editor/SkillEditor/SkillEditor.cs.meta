@@ -7,7 +7,7 @@ MonoImporter:
   - m_ViewDataDictionary: {instanceID: 0}
   - m_SelectViewAsset: {fileID: 9197481963319205126, guid: f5e9177694fb7744aa9d120cac8b8141, type: 3}
   - m_ItemViewAsset: {fileID: 9197481963319205126, guid: 67504c465d3d2e8439578528a22361af, type: 3}
-  - m_CombatConfig: {fileID: 11400000, guid: 9a29e4f939155fd4c9038337942bde30, type: 2}
+  - m_ItemCompareAsset: {fileID: 9197481963319205126, guid: c66f3c2352cc0e44586113f57bb53668, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

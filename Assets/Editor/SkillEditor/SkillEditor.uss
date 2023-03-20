@@ -2,6 +2,10 @@
     font-size: 24px;
 }
 
+.unity-base-field > Label {
+    width: 200px;
+}
+
 .abstract {
     color: rgb(101, 77, 77);
 }
@@ -12,4 +16,50 @@
 
 .selected {
     color: rgb(55, 255, 0);
+}
+
+.grey-border {
+    border-left-color: rgb(101, 101, 101);
+    border-right-color: rgb(101, 101, 101);
+    border-top-color: rgb(101, 101, 101);
+    border-bottom-color: rgb(101, 101, 101);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+}
+
+.button-row {
+    flex-grow: 0;
+    justify-content: center;
+    align-items: auto;
+    flex-direction: row;
+}
+
+.big-button {
+    -unity-text-align: upper-center;
+    width: 200px;
+}
+
+.small-button {
+    width: 100px;
+}
+
+.white-border {
+    border-left-color: rgb(200, 200, 200);
+    border-right-color: rgb(200, 200, 200);
+    border-top-color: rgb(200, 200, 200);
+    border-bottom-color: rgb(200, 200, 200);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }

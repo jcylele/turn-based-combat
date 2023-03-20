@@ -9,7 +9,6 @@ namespace Skill.Action
 
         public int totalFrame;
 
-        [SerializeReference]
-        public List<BaseActionData> actionDataList;
+        [NonReorderable] [SerializeReference] public List<BaseActionData> actionDataList;
     }
 }

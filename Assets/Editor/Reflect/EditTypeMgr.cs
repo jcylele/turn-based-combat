@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Skill.Attribute;
 
-namespace Skill.Reflect
+namespace Editor.Reflect
 {
     /// <summary>
     /// keeps reflection info of all types derived from one type
