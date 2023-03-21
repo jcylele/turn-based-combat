@@ -16,6 +16,7 @@ MonoBehaviour:
   - rid: 1197092663638360100
   - rid: 1197092649612607532
   - rid: 1197092663638360105
+  - rid: 1197092663638360108
   - rid: 1197092663638360075
   - rid: 1197092663638360073
   references:
@@ -97,3 +98,13 @@ MonoBehaviour:
       data:
         triggerTiming: 1
         triggerRelation: 7
+    - rid: 1197092663638360108
+      type: {class: BuffSkill, ns: Skill.Skills, asm: Assembly-CSharp}
+      data:
+        id: 5
+        name: buff skill 5
+        desc: 111
+        triggers: []
+        BuffID: 1002
+        lastTime: 999999
+        canClear: 0
