@@ -1,9 +1,10 @@
-﻿using Skill.Attribute;
+﻿using System;
+using Skill.Attribute;
 using Skill.Buffs;
-using System;
-using UnityEngine.EventSystems;
+using Skill.Skills;
+using Skill.Triggers;
 
-namespace Skill.Skills
+namespace Skill.Base
 {
     [Combat]
     [CombatChild(1, typeof(BaseIdItem))]
@@ -38,13 +39,13 @@ namespace Skill.Skills
 
     [Combat]
     [CombatChild(1, typeof(BaseSkillRange))]
-    [CombatChild(2, typeof(EventTrigger))]
+    [CombatChild(2, typeof(BaseTrigger))]
     [Serializable]
     public abstract class BaseNoIdItem : BaseEditItem
     {
         public override string ToString()
         {
-            return $"{this.GetType().Name}({this.GetHashCode()})";
+            return $"{this.GetType().Name}";
         }
     }
 }

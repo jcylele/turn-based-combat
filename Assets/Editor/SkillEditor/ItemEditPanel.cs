@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Editor.Reflect;
+using Skill.Base;
 using Skill.Skills;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -64,7 +65,7 @@ namespace Editor.SkillEditor
             this.editingItemData = this.m_DataStore.TopEditingItem;
             if (this.editingItemData == null) return;
 
-            var itemData = this.m_DataStore.GenerateTreeView(editingItemData.BaseType);
+            var itemData = this.m_DataStore.GenerateTreeView(editingItemData.FieldType);
             typeTreeView.SetRootItems(itemData);
             typeTreeView.Rebuild();
 
@@ -93,7 +94,7 @@ namespace Editor.SkillEditor
         {
             //PropertyField is great!
             // propertyField.Unbind();
-            propertyField.BindProperty(this.editingItemData.property);
+            propertyField.BindProperty(this.editingItemData.Property);
             // propertyField.label = this.editingItemData.CurType.Name;
             // this.root.Q<Button>("btnSave").RegisterCallback((ClickEvent evt) => { this.m_DataStore.PopItem(); });
         }

@@ -1,26 +1,27 @@
 ﻿using System.Linq;
 using Editor.Reflect;
+using Editor.SkillEditor;
 using Skill.Attribute;
-using Skill.Skills;
+using Skill.Base;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 
-namespace Editor.ActionEditor
+namespace Editor.Drawers
 {
     [CustomPropertyDrawer(typeof(CombatIdSelectAttribute))]
     public class IdSelectDrawer : PropertyDrawer
     {
         public override VisualElement CreatePropertyGUI(SerializedProperty property)
         {
-            if (!EditorWindow.HasOpenInstances<SkillEditor.SkillEditor>())
+            var editingCombatConfig = property.serializedObject.targetObject as EditingCombatConfig;
+            if (editingCombatConfig == null)
             {
                 return new PropertyField(property);
             }
 
-            var idSelectAttribute = attribute as CombatIdSelectAttribute;
-            var wnd = EditorWindow.GetWindow<SkillEditor.SkillEditor>();
-            var choices = wnd.CombatConfig.GetFilteredDataList(idSelectAttribute.idType).ToList();
+            var idSelectAttribute = (CombatIdSelectAttribute)attribute;
+            var choices = editingCombatConfig.allData.GetFilteredDataList(idSelectAttribute.idType).ToList();
             var curIndex = choices.FindIndex((item => item.id == property.intValue));
             var popupField = new PopupField<BaseIdItem>(property.displayName, choices, curIndex, item =>
             {

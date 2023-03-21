@@ -1,5 +1,6 @@
 ﻿using System;
 using Editor.Reflect;
+using Skill.Base;
 using Skill.Buffs;
 using Skill.Skills;
 using UnityEditor;
@@ -16,18 +17,15 @@ namespace Editor.SkillEditor
         [SerializeReference] public BaseBuff originBuff;
         [SerializeReference] public BaseSkill skill;
         [SerializeReference] public BaseBuff buff;
-
+        public CombatConfig allData;
+        
         public EditingItemData NewEditingItemData(EditClassInfo classInfo, BaseIdItem item, bool isOrigin)
         {
+            //use copy, not the original
             if (item != null)
             {
                 item = item.CopyObject<BaseIdItem>();
             }
-
-            var obj = new EditingItemData
-            {
-                fieldType = this.GetType()
-            };
 
             string fieldName = String.Empty;
             //TODO can't find an uniform way to process skill and buff
@@ -65,7 +63,7 @@ namespace Editor.SkillEditor
 
             var serializedObject = new SerializedObject(this);
             var newProperty = serializedObject.FindProperty(fieldName);
-            return obj.Forward(newProperty);
+            return new EditingItemData(newProperty);
         }
     }
 }

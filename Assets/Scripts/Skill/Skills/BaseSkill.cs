@@ -1,6 +1,7 @@
 ﻿using Skill.Attribute;
 using System;
 using System.Collections.Generic;
+using Skill.Base;
 using Skill.Triggers;
 using UnityEngine;
 
@@ -12,6 +13,6 @@ namespace Skill.Skills
     [Serializable]
     public abstract class BaseSkill : BaseIdItem
     {
-        [SerializeReference] public List<EventTrigger> triggers;
+        [SerializeReference] public List<BaseTrigger> triggers;
     }
 }

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using Skill.Data;
+using Skill.Base;
 using Skill.Skills;
+using UnityEditor;
 
 namespace Editor.Reflect
 {
@@ -51,7 +52,8 @@ namespace Editor.Reflect
             return -1;
         }
 
-        public static bool AddOrReplaceItem<T>(this IList<T> list, int originalID, T item, out string errString) where  T : BaseIdItem
+        public static bool AddOrReplaceItem<T>(this IList<T> list, int originalID, T item, out string errString)
+            where T : BaseIdItem
         {
             errString = String.Empty;
 
@@ -59,7 +61,7 @@ namespace Editor.Reflect
             if (originalID != item.id)
             {
                 errString = $"id changed from {originalID} to {item.id}, notice for reference";
-                
+
                 var newIndex = list.GetIdIndex(item.id);
                 if (newIndex != -1)
                 {
@@ -67,7 +69,7 @@ namespace Editor.Reflect
                     return false;
                 }
             }
-            
+
             if (originalIndex == -1)
             {
                 list.Add(item);
@@ -79,11 +81,19 @@ namespace Editor.Reflect
 
             return true;
         }
-        
+
         public static bool IsList(this Type type)
         {
-            return type.IsGenericType 
+            return type.IsGenericType
                    && type.GetGenericTypeDefinition() == typeof(List<>);
+        }
+
+        public static Type ManagedPropertyType(this SerializedProperty serializedProperty)
+        {
+            var nameList =
+                serializedProperty.managedReferenceFieldTypename.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+            var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.GetName().Name == nameList[0]);
+            return assembly.GetType(nameList[1], true);
         }
     }
 }

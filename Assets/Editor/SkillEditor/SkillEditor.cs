@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Skill.Data;
+using Skill.Base;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;

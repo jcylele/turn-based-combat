@@ -1,9 +1,12 @@
-﻿using Skill.Skills;
+﻿using Editor.Reflect;
+using Editor.SkillEditor;
+using Skill.Base;
+using Skill.Skills;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 
-namespace Editor.SkillEditor
+namespace Editor.Drawers
 {
     /// <summary>
     /// Custom drawer for nested classes,
@@ -11,7 +14,7 @@ namespace Editor.SkillEditor
     /// <para>most times this method is only triggered once</para>
     /// </summary>
     [CustomPropertyDrawer(typeof(BaseNoIdItem), true)]
-    public class BaseNoIdItemEditingDrawer : PropertyDrawer
+    public class BaseNoIdItemDrawer : PropertyDrawer
     {
         public override VisualElement CreatePropertyGUI(SerializedProperty property)
         {
@@ -22,32 +25,31 @@ namespace Editor.SkillEditor
             var propertyField = root.Q<PropertyField>();
             propertyField.BindProperty(property);
 
-            bool canEdit = false;
+            bool canEdit = true;
             bool showEditButton = false;
             var btnEdit = root.Q<Button>();
 
-            if (property.serializedObject.targetObject.GetType() != typeof(EditingCombatConfig))
+            if (property.serializedObject.targetObject.GetType() == typeof(EditingCombatConfig))
             {
-                canEdit = false;
-                showEditButton = false;
-            }
-            else
-            {
-                var wnd = EditorWindow.GetWindow<SkillEditor>();
-                canEdit = property.propertyPath == wnd.DataStore.TopEditingItem.property.propertyPath;
+                var wnd = EditorWindow.GetWindow<SkillEditor.SkillEditor>();
+                canEdit = property.propertyPath == wnd.DataStore.TopEditingItem.Property.propertyPath;
                 showEditButton = !canEdit;
 
                 if (showEditButton)
                 {
                     btnEdit.clicked += () =>
                     {
-                        var newItem = wnd.DataStore.TopEditingItem.Forward(property);
+                        var newItem = new EditingItemData(property);
                         wnd.DataStore.PushItem(newItem);
                     };
                 }
             }
 
             propertyField.SetEnabled(canEdit);
+            if (property.managedReferenceValue != null)
+            {
+                propertyField.label = property.managedReferenceValue.ToString();
+            }
             btnEdit.style.display = showEditButton
                 ? DisplayStyle.Flex
                 : DisplayStyle.None;

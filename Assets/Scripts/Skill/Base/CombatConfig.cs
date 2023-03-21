@@ -1,8 +1,7 @@
-﻿using Skill.Skills;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Skill.Data
+namespace Skill.Base
 {
     /// <summary>
     /// contains all combat configs

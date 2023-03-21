@@ -34,12 +34,12 @@ namespace Editor.SkillEditor
             base.OnShow();
             if (this.m_DataStore.OriginEditingItemData != null)
             {
-                mOriginPropertyField.BindProperty(this.m_DataStore.OriginEditingItemData.property);    
+                mOriginPropertyField.BindProperty(this.m_DataStore.OriginEditingItemData.Property);    
             }
 
             if (this.m_DataStore.OriginEditingItemData != null)
             {
-                mNewPropertyField.BindProperty(this.m_DataStore.TopEditingItem.property);    
+                mNewPropertyField.BindProperty(this.m_DataStore.TopEditingItem.Property);    
             }
         }
     }

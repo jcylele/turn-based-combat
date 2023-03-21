@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Editor.Reflect;
-using Skill.Data;
+using Skill.Base;
 using Skill.Skills;
 using UnityEditor;
 using UnityEngine;
@@ -84,7 +84,10 @@ namespace Editor.SkillEditor
             }
 
             mEditingCombatConfig = ScriptableObject.CreateInstance<EditingCombatConfig>();
+            mEditingCombatConfig.allData = m_CombatConfig;
+            //keep the original data
             this.OriginEditingItemData = mEditingCombatConfig.NewEditingItemData(selectedClass, selectedItem, true);
+            
             var data = mEditingCombatConfig.NewEditingItemData(selectedClass, selectedItem, false);
             this.PushItem(data);
         }
@@ -106,7 +109,6 @@ namespace Editor.SkillEditor
             {
                 editStack.RemoveAt(editStack.Count - 1);
             }
-
             OnStackChanged();
         }
 

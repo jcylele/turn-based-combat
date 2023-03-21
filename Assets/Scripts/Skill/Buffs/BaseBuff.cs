@@ -2,6 +2,7 @@
 using Skill.Skills;
 using System;
 using System.ComponentModel;
+using Skill.Base;
 
 namespace Skill.Buffs
 {

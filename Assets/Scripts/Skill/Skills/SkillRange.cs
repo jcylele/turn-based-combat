@@ -1,5 +1,6 @@
 ﻿using Skill.Attribute;
 using System;
+using Skill.Base;
 
 namespace Skill.Skills
 {

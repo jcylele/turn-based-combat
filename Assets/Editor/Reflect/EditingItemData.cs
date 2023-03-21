@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using Skill.Base;
 using Skill.Skills;
 using UnityEditor;
 
@@ -22,16 +24,12 @@ namespace Editor.Reflect
         {
             get => this.mItem;
 
-            set => InnerSetItem(value);
-        }
-
-        private void InnerSetItem(BaseEditItem value)
-        {
-            this.mItem = value;
-            if (this.property != null)
+            set
             {
-                this.property.managedReferenceValue = value;
-                this.property.serializedObject.ApplyModifiedProperties();    
+                this.mItem = value;
+                if (this.Property == null) return;
+                this.Property.managedReferenceValue = value;
+                this.Property.serializedObject.ApplyModifiedProperties();
             }
         }
 
@@ -39,40 +37,24 @@ namespace Editor.Reflect
         /// bound to object, can get and set value directly,
         /// keeps full path from the SerializedObject
         /// </summary>
-        public SerializedProperty property;
+        public SerializedProperty Property { get; }
 
         /// <summary>
         /// static info(independent from object),
         /// keeps only one layer relationship
         /// </summary>
-        public Type fieldType;
+        public Type FieldType { get; }
 
-        public Type BaseType => fieldType;
-
-        public Type CurType => Item == null ? BaseType : Item.GetType();
+        public Type CurType => Item == null ? FieldType : Item.GetType();
 
         /// <summary>
         /// dive into one field
         /// </summary>
-        public EditingItemData Forward(SerializedProperty newProperty)
+        public EditingItemData(SerializedProperty newProperty)
         {
-            var newItem = newProperty.managedReferenceValue as BaseEditItem;
-            
-            var newField = this.CurType.GetField(newProperty.name);
-            var newFieldType = newField.FieldType;
-            if (newFieldType.IsList())
-            {
-                newFieldType = newFieldType.GenericTypeArguments[0];
-            }
-            
-            var ret = new EditingItemData
-            {
-                property = newProperty,
-                fieldType = newFieldType,
-                Item = newItem
-            };
-
-            return ret;
+            this.Property = newProperty;
+            this.FieldType = newProperty.ManagedPropertyType();
+            this.mItem = newProperty.managedReferenceValue as BaseEditItem;
         }
     }
 }

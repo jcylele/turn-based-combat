@@ -1,10 +1,10 @@
-using Skill.Data;
+using Skill.Base;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor.SkillEditor
+namespace Editor.Drawers
 {
-    [CustomEditor(typeof(CombatConfig))]
+    // [CustomEditor(typeof(CombatConfig))]
     public class CombatConfigEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()

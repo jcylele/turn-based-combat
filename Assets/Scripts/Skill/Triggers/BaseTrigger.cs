@@ -1,4 +1,5 @@
 ﻿using System;
+using Skill.Base;
 using Skill.Skills;
 
 namespace Skill.Triggers
@@ -21,7 +22,7 @@ namespace Skill.Triggers
     }
     
     [Serializable]
-    public class EventTrigger : BaseNoIdItem
+    public class BaseTrigger : BaseNoIdItem
     {
         public ETiming triggerTiming;
         public ERelation triggerRelation;
