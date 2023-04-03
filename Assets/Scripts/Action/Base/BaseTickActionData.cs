@@ -1,7 +1,11 @@
 ﻿using System;
+using Action.ActionData;
+using Skill.Attribute;
 
-namespace Skill.Action
+namespace Action.Base
 {
+    [Combat]
+    [CombatChild(1, typeof(MoveActionData))]
     [Serializable]
     public class BaseTickActionData : BaseActionData
     {

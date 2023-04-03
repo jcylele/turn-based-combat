@@ -8,7 +8,7 @@
             </uie:Toolbar>
             <uie:PropertyField name="templateName" binding-path="templateName" />
             <uie:PropertyField name="totalFrame" binding-path="totalFrame" />
-            <ui:ListView focusable="true" name="actionList" fixed-item-height="30" header-title="Actions" show-foldout-header="true" style="margin-top: 10px; margin-bottom: 10px;" />
+            <ui:ListView focusable="true" name="actionList" fixed-item-height="30" style="margin-top: 10px; margin-bottom: 10px; padding-top: 10px;" />
         </ui:VisualElement>
         <uie:PropertyField name="action" style="min-width: 240px; flex-grow: 1;" />
     </ui:VisualElement>

@@ -1,6 +1,11 @@
-﻿namespace Skill.Action
+﻿using Action.ActionData;
+using Action.Actions;
+using Action.Base;
+using Skill.Action;
+
+namespace Action
 {
-    public class ActionUtils
+    public static class ActionUtils
     {
         public static BaseAction CreateAction(BaseActionData data)
         {

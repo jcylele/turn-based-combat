@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CombatConfig
   m_EditorClassIdentifier: 
   allData:
-  - rid: 1197092663638360100
+  - rid: 3996685259395825680
   - rid: 1197092649612607532
   - rid: 1197092663638360105
   - rid: 1197092663638360108
@@ -66,22 +66,6 @@ MonoBehaviour:
         name: buff1001
         desc: 
         interval: 11111
-    - rid: 1197092663638360100
-      type: {class: AttackSkill, ns: Skill.Skills, asm: Assembly-CSharp}
-      data:
-        id: 1
-        name: attack
-        desc: attack an enemy
-        triggers: []
-        AttackFactor: 1
-        AttackFix: 2
-        AttackRange:
-          rid: 1197092663638360101
-    - rid: 1197092663638360101
-      type: {class: RectSkillRange, ns: Skill.Skills, asm: Assembly-CSharp}
-      data:
-        width: 10
-        height: 10
     - rid: 1197092663638360105
       type: {class: BuffSkill, ns: Skill.Skills, asm: Assembly-CSharp}
       data:
@@ -108,3 +92,31 @@ MonoBehaviour:
         BuffID: 1002
         lastTime: 999999
         canClear: 0
+    - rid: 3996685259395825680
+      type: {class: AttackSkill, ns: Skill.Skills, asm: Assembly-CSharp}
+      data:
+        id: 1
+        name: attack
+        desc: attack an enemy
+        triggers:
+        - rid: 3996685259395825681
+        - rid: 3996685259395825682
+        AttackFactor: 1
+        AttackFix: 2
+        AttackRange:
+          rid: 3996685259395825683
+    - rid: 3996685259395825681
+      type: {class: BaseTrigger, ns: Skill.Triggers, asm: Assembly-CSharp}
+      data:
+        triggerTiming: 1
+        triggerRelation: 2
+    - rid: 3996685259395825682
+      type: {class: BaseTrigger, ns: Skill.Triggers, asm: Assembly-CSharp}
+      data:
+        triggerTiming: 3
+        triggerRelation: 7
+    - rid: 3996685259395825683
+      type: {class: RectSkillRange, ns: Skill.Skills, asm: Assembly-CSharp}
+      data:
+        width: 10
+        height: 20

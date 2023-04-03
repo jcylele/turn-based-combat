@@ -1,5 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Action.ActionData;
+using Action.Base;
+using Editor.Reflect;
 using Skill.Action;
 using UnityEditor;
 using UnityEditor.UIElements;
@@ -10,8 +14,9 @@ namespace Editor.ActionEditor
 {
     public class ActionEditor : EditorWindow
     {
-        [SerializeField]
-        private VisualTreeAsset m_ActionEditViewAsset = default;
+        [SerializeField] private VisualTreeAsset m_ActionEditViewAsset = default;
+        [SerializeField] private VisualTreeAsset m_ActionItemAsset = default;
+
 
         [MenuItem("Skill/Action Editor")]
         public static void ShowExample()
@@ -21,16 +26,25 @@ namespace Editor.ActionEditor
             wnd.minSize = new Vector2(640f, 360f);
         }
 
-        ListView actionList;
-        //InspectorView actionInspector;
-        PropertyField actionProperty;
 
-        public ActionTemplateData TemplateData { get; private set; }
+        private EditTypeMgr mEditTypeMgr;
+
+        private ListView mActionList;
+
+        //InspectorView actionInspector;
+        private PropertyField mActionProperty;
+        private SerializedProperty mActionDataListProperty;
+
+        private ActionTemplateData TemplateData { get; set; }
 
         public void CreateGUI()
         {
+            mEditTypeMgr = new EditTypeMgr(typeof(BaseActionData));
+
             TemplateData = CreateInstance<ActionTemplateData>();
             TemplateData.actionDataList = new List<BaseActionData>();
+
+            // var templateList = GetAllAssets<ActionTemplateData>("Assets/Resources/Actions/");
 
             // Each editor window contains a root VisualElement object
             VisualElement root = rootVisualElement;
@@ -42,17 +56,39 @@ namespace Editor.ActionEditor
             InitControls(editView);
         }
 
-        void InitControls(VisualElement root)
+        private void OnTotalFrameChanged(SerializedPropertyChangeEvent evt)
         {
-            var serializedTemplateData = new SerializedObject(this.TemplateData);
-
-            this.actionProperty = root.Q<PropertyField>("action");
-            //this.actionProperty.BindProperty(serializedTemplateData);
-
-            root.Query<PropertyField>().ForEach((a) =>
+            foreach (var actionData in this.TemplateData.actionDataList)
             {
-                a.BindProperty(serializedTemplateData);
-            });
+                switch (actionData)
+                {
+                    case BaseTickActionData tickActionData:
+                        tickActionData.enterFrame =
+                            Mathf.Clamp(tickActionData.enterFrame, 0, this.TemplateData.totalFrame - 1);
+                        tickActionData.exitFrame =
+                            Mathf.Clamp(tickActionData.exitFrame, 0, this.TemplateData.totalFrame - 1);
+                        break;
+                    case BaseTriggerActionData triggerActionData:
+                        triggerActionData.triggerFrame = Mathf.Clamp(triggerActionData.triggerFrame, 0,
+                            this.TemplateData.totalFrame - 1);
+                        break;
+                }
+            }
+
+            this.mActionList.Rebuild();
+        }
+
+        private void InitControls(VisualElement root)
+        {
+            var serializedObject = new SerializedObject(this.TemplateData);
+            this.mActionDataListProperty = serializedObject.FindProperty("actionDataList");
+
+            this.mActionProperty = root.Q<PropertyField>("action");
+
+            root.Query<PropertyField>().ForEach((a) => { a.BindProperty(serializedObject); });
+
+            var totalFramePropertyField = root.Q<PropertyField>("totalFrame");
+            totalFramePropertyField.RegisterValueChangeCallback(OnTotalFrameChanged);
 
             var tbSave = root.Q<ToolbarButton>("tbSave");
             tbSave.clicked += OnSaveClick;
@@ -60,21 +96,22 @@ namespace Editor.ActionEditor
             var menu = root.Q<ToolbarMenu>("menuAdd");
             InitAddMenu(menu);
 
-            this.actionList = root.Q<ListView>("actionList");
-            actionList.makeItem = MakeActionDataItem;
-            actionList.bindItem = BindActionDataItem;
-            actionList.selectedIndicesChanged += OnActionSelectionChanged;
-            this.actionList.itemsSource = this.TemplateData.actionDataList;
+            this.mActionList = root.Q<ListView>("actionList");
+            mActionList.makeItem = MakeActionDataItem;
+            mActionList.bindItem = BindActionDataItem;
+            mActionList.selectedIndicesChanged += OnActionSelectionChanged;
+            this.mActionList.itemsSource = this.TemplateData.actionDataList;
         }
 
-        void OnMenuAddAction(Type type)
+        private void OnMenuAddAction(Type type)
         {
             var actionData = Activator.CreateInstance(type) as BaseActionData;
             this.TemplateData.actionDataList.Add(actionData);
-            this.actionList.Rebuild();
+            this.mActionDataListProperty.serializedObject.Update();
+            this.mActionList.Rebuild();
         }
 
-        void InitAddMenu(ToolbarMenu menu)
+        private void InitAddMenu(ToolbarMenu menu)
         {
             List<Type> types = new List<Type>() { typeof(MoveActionData), typeof(PlayEffectActionData) };
             foreach (var type in types)
@@ -83,7 +120,7 @@ namespace Editor.ActionEditor
             }
         }
 
-        void OnSaveClick()
+        private void OnSaveClick()
         {
             var path = $"Assets/Resources/Actions/{this.TemplateData.templateName}.asset";
             AssetDatabase.CreateAsset(this.TemplateData, path);
@@ -91,28 +128,73 @@ namespace Editor.ActionEditor
         }
 
 
-        VisualElement MakeActionDataItem()
+        private VisualElement MakeActionDataItem()
         {
-            return new Label();
+            return m_ActionItemAsset.Instantiate();
         }
 
-        void BindActionDataItem(VisualElement element, int index)
+        private void BindActionDataItem(VisualElement element, int index)
         {
-            (element as Label).text = (actionList.itemsSource[index] as BaseActionData).GetType().Name;
+            var data = this.TemplateData.actionDataList[index];
+            var itemProperty = this.mActionDataListProperty.GetArrayElementAtIndex(index);
+
+            var typeName = data.GetType().Name;
+            var tick = element.Q<MinMaxSlider>("tick");
+            var trigger = element.Q<Slider>("trigger");
+
+            switch (data)
+            {
+                case BaseTickActionData tickActionData:
+                    tick.label = typeName;
+                    tick.lowLimit = 0;
+                    tick.highLimit = this.TemplateData.totalFrame - 1;
+                    tick.value = new Vector2(tickActionData.enterFrame, tickActionData.exitFrame);
+                    tick.RegisterValueChangedCallback((evt) =>
+                    {
+                        tickActionData.enterFrame = (int)evt.newValue.x;
+                        tickActionData.exitFrame = (int)evt.newValue.y;
+                    });
+
+                    tick.style.display = DisplayStyle.Flex;
+                    trigger.style.display = DisplayStyle.None;
+                    break;
+                case BaseTriggerActionData triggerActionData:
+                    //TODO due to some unknown bug, slider can not be selected in listview
+                    trigger.label = typeName;
+                    trigger.lowValue = 0;
+                    trigger.highValue = this.TemplateData.totalFrame - 1;
+
+                    trigger.value = triggerActionData.triggerFrame;
+                    trigger.RegisterValueChangedCallback((evt) => { triggerActionData.triggerFrame = (int)evt.newValue; });
+                    // trigger.BindProperty(itemProperty.FindPropertyRelative("triggerFrame"));
+
+                    tick.style.display = DisplayStyle.None;
+                    trigger.style.display = DisplayStyle.Flex;
+                    break;
+            }
         }
 
-        void OnActionSelectionChanged(IEnumerable<int> indices)
+        private void OnActionSelectionChanged(IEnumerable<int> indices)
         {
-            SerializedObject serializedObject = new SerializedObject(this.TemplateData);
-            SerializedProperty listProperty = serializedObject.FindProperty("actionDataList");
-
             //Single Select Mode, only one object at each time
             foreach (var index in indices)
             {
-                var itemProperty = listProperty.GetArrayElementAtIndex(index);
-                this.actionProperty.bindingPath = itemProperty.propertyPath;
-                this.actionProperty.BindProperty(serializedObject);
+                var itemProperty = this.mActionDataListProperty.GetArrayElementAtIndex(index);
+                // this.mActionProperty.bindingPath = itemProperty.propertyPath;
+                this.mActionProperty.BindProperty(itemProperty);
+                this.mActionProperty.label = this.TemplateData.actionDataList[index].GetType().Name;
+                this.mActionProperty.RegisterValueChangeCallback((evt) =>
+                {
+                    Debug.Log($"ActionProperty Changed: {index}");
+                    this.mActionList.RefreshItem(index);
+                });
             }
+        }
+
+        public static IEnumerable<string> GetAllAssets<T>(string folder) where T : ScriptableObject
+        {
+            var guids = AssetDatabase.FindAssets("t:" + typeof(T).Name, new[] { folder });
+            return guids.Select(guid => AssetDatabase.GUIDToAssetPath(guid));
         }
     }
 }

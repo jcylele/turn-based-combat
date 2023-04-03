@@ -1,7 +1,8 @@
 ﻿using System;
+using Action.Base;
 using UnityEngine;
 
-namespace Skill.Action
+namespace Action.ActionData
 {
     [Serializable]
     public class PlayEffectActionData : BaseTriggerActionData

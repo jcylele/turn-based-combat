@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using Action.ActionData;
+using Action.Base;
+using UnityEngine;
 
-namespace Skill.Action
+namespace Action.Actions
 {
     public class PlayEffectAction : BaseTriggerAction
     {

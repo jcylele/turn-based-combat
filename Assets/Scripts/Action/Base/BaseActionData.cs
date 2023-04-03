@@ -1,8 +1,11 @@
 ﻿using System;
-using UnityEngine;
+using Skill.Attribute;
 
-namespace Skill.Action
+namespace Action.Base
 {
+    [Combat]
+    [CombatChild(1, typeof(BaseTickActionData))]
+    [CombatChild(2, typeof(BaseTriggerActionData))]
     [Serializable]
     public abstract class BaseActionData
     {

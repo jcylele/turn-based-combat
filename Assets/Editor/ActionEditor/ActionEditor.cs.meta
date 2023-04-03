@@ -6,6 +6,7 @@ MonoImporter:
   defaultReferences:
   - m_ViewDataDictionary: {instanceID: 0}
   - m_ActionEditViewAsset: {fileID: 9197481963319205126, guid: b500ca08bab50f1499fee668c07a89cc, type: 3}
+  - m_ActionItemAsset: {fileID: 9197481963319205126, guid: e1d0dd4112260344e969bcfe5f752d22, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

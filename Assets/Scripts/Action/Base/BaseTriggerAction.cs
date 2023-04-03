@@ -1,4 +1,4 @@
-namespace Skill.Action
+namespace Action.Base
 {
     public abstract class BaseTriggerAction : BaseAction
     {
